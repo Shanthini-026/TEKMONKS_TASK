@@ -4,7 +4,7 @@ from flask import Flask, jsonify,render_template
 
 app = Flask(__name__)
 
-@app.route('/getTimeStories')
+@app.route('/getTimeStories')#for JSON commit
 def index():
     response = requests.get('https://time.com/')
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -12,7 +12,7 @@ def index():
     stories = latest_stories_section.find_all('a')
     latest_stories = [{'title': story.text, 'link': "https://time.com"+story['href']} for story in stories]
     return jsonify(latest_stories)
-@app.route('/')
+@app.route('/')#for html
 def content():
     response = requests.get('https://time.com/')
     soup = BeautifulSoup(response.content, 'html.parser')
